@@ -6,8 +6,15 @@ const TransportModel = new schema({
         type : schema.Types.ObjectId,
         ref : "donationRequest"
     },
-    volunteerName : {
+    volunteerId : {
+        type:schema.Types.ObjectId,
+        tref:'user',
+        
+    },
+    status : {
         type : String,
+        enum : ["pending","start","In process","Complete","Assign Volunteer"],
+        default : "pending"
     }
 },{timestamps:true})
 
