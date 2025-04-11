@@ -32,6 +32,9 @@ const History = new schema({
     address:{
         type : String
     },
+    to:{
+        type: String
+    },
     imageURL : {
         type : String
     },

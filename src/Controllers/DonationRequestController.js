@@ -1,5 +1,6 @@
 const DonationModel = require("../Models/DonationModel")
 const donationRequestModel = require("../Models/DonationRequestModel")
+const History = require("../Models/History")
 const TransportModel = require("../Models/TransportModel")
 
 const addRequest = async (req, res) => {
@@ -64,17 +65,31 @@ const getRequestByNgoId = async (req, res) => {
 
 const updateStatusAccept = async (req, res) => {
     try {
-        //update accept on donationrequest model
-        const data = await donationRequestModel.findOneAndUpdate({ _id: req.body._id }, req.body, { new: true })
-        if (data) {
-            await DonationModel.findByIdAndDelete(data._id)
-            //create entry in transport model
-            await TransportModel.create({ donationRequestId: data._id })
+        const id = req.params.id
+        const donation = await donationRequestModel.findByIdAndDelete(id);
+
+        if (donation) {
+            const donationData = donation.toObject();
+            await DonationModel.deleteOne({_id:donation._id})
+
+            // Remove unwanted fields
+            delete donationData.donationId;
+            delete donationData._id;
+            delete donationData.__v;
+            
+
+            // Create new History entry
+            const hdata = await History.create(donationData);
+
+            // Use it for transport
+            await TransportModel.create({ historyId: hdata._id });
+
+            res.status(202).json({
+                message: "Data updated successfully...",
+            })
+        } else {
+            console.log("Donation not found.");
         }
-        res.status(202).json({
-            message: "Data updated successfully...",
-            data: data
-        })
     } catch (err) {
         console.log(err)
         res.status(500).json({

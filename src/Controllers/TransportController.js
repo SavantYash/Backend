@@ -16,8 +16,13 @@ const addTransport = async (req, res) => {
 
 const getTransport = async (req, res) => {
     try {
-        const data = await TransportModel.find().populate("donationRequestId")
-        console.log(data)
+        const data = await TransportModel.find({volunteerId:null}).populate({
+            path: 'historyId',
+            populate: {
+                path: 'ngoId'
+            }
+        });
+
         res.status(200).json({
             message: "data fetched successfully...",
             data: data
@@ -29,24 +34,30 @@ const getTransport = async (req, res) => {
 
 const onAccept = async (req, res) => {
     try {
-        const {id,id1} = req.params
-        await TransportModel.findByIdAndUpdate({_id:id1},{volunteerId:id})
+        console.log(req.params)
+        const { id, id1 } = req.params
+        console.log(await TransportModel.findByIdAndUpdate({ _id: id1 }, { volunteerId: id }))
     } catch (err) {
         console.log(err)
     }
 }
 
-const fetchDataByVid = async (req,res) => {
-    try{
+const fetchDataByVid = async (req, res) => {
+    try {
         const id = req.params.id
         console.log(id)
-        const data = await TransportModel.find({volunteerId:id}).populate('donationRequestId')
+        const data = await TransportModel.find({ volunteerId: id }).populate({
+            path:'historyId',
+            populate:{
+                path:'ngoId'
+            }
+        })
         console.log(data)
         res.status(200).json({
-            message : 'data fetched successfully...',
-            data : data
+            message: 'data fetched successfully...',
+            data: data
         })
-    }catch(err){
+    } catch (err) {
         console.log(err)
     }
 }

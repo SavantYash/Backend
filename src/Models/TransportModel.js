@@ -2,14 +2,14 @@ const mongoose = require("mongoose")
 const schema = mongoose.Schema
 
 const TransportModel = new schema({
-    donationRequestId : {
+    historyId : {
         type : schema.Types.ObjectId,
-        ref : "donationRequest"
+        ref : "history"
     },
     volunteerId : {
         type:schema.Types.ObjectId,
         tref:'user',
-        
+        default:null
     },
     status : {
         type : String,
