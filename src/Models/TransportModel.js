@@ -13,8 +13,8 @@ const TransportModel = new schema({
     },
     status : {
         type : String,
-        enum : ["pending","start","In process","Complete","Assign Volunteer"],
-        default : "pending"
+        enum : ["Pending","PickedUp","Delivered","Assign Volunteer"],
+        default : "Pending"
     }
 },{timestamps:true})
 

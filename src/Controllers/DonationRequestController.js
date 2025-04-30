@@ -18,6 +18,18 @@ const addRequest = async (req, res) => {
     }
 }
 
+const deleteDonation = async (req,res)=>{
+    try{
+        const id = req.params.id
+        await donationRequestModel.findByIdAndDelete({_id:id}) 
+        res.status(200).json({
+            message : "data deleted successfully..."
+        })  
+    }catch(err){
+        console.log(err)
+    }
+}
+
 const getRequest = async (req, res) => {
     try {
         const data = await donationRequestModel.find().populate("ngoId").populate("donorId").populate("donationId")
@@ -77,7 +89,7 @@ const updateStatusAccept = async (req, res) => {
             delete donationData._id;
             delete donationData.__v;
             
-
+            
             // Create new History entry
             const hdata = await History.create(donationData);
 
@@ -99,5 +111,5 @@ const updateStatusAccept = async (req, res) => {
 }
 
 module.exports = {
-    addRequest, getRequest, getRequestByDonorId, getRequestByNgoId, updateStatusAccept
+    addRequest, getRequest, getRequestByDonorId, getRequestByNgoId, updateStatusAccept, deleteDonation
 }

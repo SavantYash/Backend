@@ -19,6 +19,9 @@ const UserModel = new schema({
         type : schema.Types.ObjectId,
         ref : "roles"
     },
+    roleName : {
+        type : String
+    },
     registrationNumber : {
         type : String
     },

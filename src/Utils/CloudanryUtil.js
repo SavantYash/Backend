@@ -7,9 +7,7 @@ const uploadFileToCloudanry = async (file) => {
         api_key: "565729155965725",
         api_secret: "tEE_Scwnhjfw-azc1t0GeBwOKYo"
     });
-    console.log(file)
-    const res = await cloudanry.uploader.upload(file.path);
-    return res;
+    return await cloudanry.uploader.upload(file);
 }
 
 module.exports = { uploadFileToCloudanry }

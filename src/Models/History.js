@@ -26,6 +26,11 @@ const History = new schema({
     condition : {
         type : String
     },
+    status : {
+        type : String,
+        enum : ["Pending","PickedUp","Delivered","Assign Volunteer"],
+        default : "Pending"
+    },
     description : {
         type : String
     },
@@ -36,6 +41,9 @@ const History = new schema({
         type: String
     },
     imageURL : {
+        type : String
+    },
+    imageURL2 : {
         type : String
     },
     state : {
@@ -50,6 +58,8 @@ const History = new schema({
         type : schema.Types.ObjectId,
         ref : "area"
     }
+},{
+    timestamps : true
 })
 
 module.exports = mongoose.model("history",History)

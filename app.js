@@ -32,6 +32,13 @@ app.use("/area",AreaRoutes)
 const RequestRoutes = require("./src/Routes/DonationRequestRoutes")
 app.use("/request",RequestRoutes)
 
+const HistoryRoutes = require("./src/Routes/HistoryRoutes")
+app.use("/history",HistoryRoutes)
+
+const chatRoutes = require("./src/Routes/ChatRoutes");
+app.use("/api", chatRoutes);
+
+
 mongoose.connect("mongodb://127.0.0.1:27017/25_node_internship").then(()=>{
     console.log("databse connects...")
 })
@@ -40,55 +47,5 @@ mongoose.connect("mongodb://127.0.0.1:27017/25_node_internship").then(()=>{
 //server init
 const PORT = 5000
 app.listen(PORT,()=>{
-    console.log("services are running......")
+    console.log("services are running at port "+PORT)
 })
-
-
-
-
-
-
-
-
-
-// app.get("/test",(req,res)=>{
-//     console.log("test is running....")
-//     res.send("test is running...")
-// })
-
-// app.get("/users",(req,res)=>{
-//     res.json(
-//         [  
-//             {
-//             massage : "jhgfcv",
-//             data : [12,23,45]
-//             },
-//             {
-//                 massage : "gfvbnh",
-//                 data : [76,76]
-//             }
-//         ])
-// })
-
-// app.get("/employee",(req,res)=>{
-//     res.json([
-//         {
-//             name : 'abc',
-//             age:21,
-//             salary : 12000,
-//             position : 'hr'
-//         },
-//         {
-//             name : 'def',
-//             age:32,
-//             salary : 21000,
-//             position : 'hr'
-//         },
-//         {
-//             name : 'ghk',
-//             age:28,
-//             salary : 18000,
-//             position : 'hr'
-//         }
-//     ])
-// })

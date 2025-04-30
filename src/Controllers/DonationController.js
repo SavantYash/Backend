@@ -29,6 +29,7 @@ const getData = async (req, res) => {
 
 const getDataById = async (req, res) => {
     const data = await donationModel.find({ donorId: req.params.id })
+    console.log("h",data + req.params.id)
     res.status(200).json({
         data: data
     })

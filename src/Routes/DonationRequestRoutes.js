@@ -6,5 +6,6 @@ routes.get("/get",requestControllers.getRequest)
 routes.get("/get/:id",requestControllers.getRequestByDonorId)
 routes.get("/getu/:id",requestControllers.getRequestByNgoId)
 routes.get("/update/:id",requestControllers.updateStatusAccept)
+routes.delete("/delete/:id",requestControllers.deleteDonation)
 
 module.exports = routes
